@@ -12,6 +12,24 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    console.log(contacts);
+    //  если const contacts существует и у него есть длинна то:
+    if (contacts?.length) {
+      this.setState({ contacts: contacts });
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    // console.log(this.state);
+    // console.log(prevState);
+    if (this.state.contacts.length !== prevState.contacts.length) {
+      const newContacts = JSON.stringify(this.state.contacts);
+      localStorage.setItem('contacts', newContacts);
+    }
+  }
+
   addContact = data => {
     if (this.state.contacts.find(el => el.name === data.name)) {
       Notify.failure('This contact is already in phonebook');

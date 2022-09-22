@@ -25,7 +25,10 @@ Contacts.defaultProps = {
 Contacts.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.object.isRequired,
+      id: PropTypes.oneOfType([
+        PropTypes.object.isRequired,
+        PropTypes.string.isRequired,
+      ]),
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     })
